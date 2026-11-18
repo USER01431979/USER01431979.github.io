@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李安卉 · 微哥特个人站</title>
+    <style>
+        /* ---- CSS 变量：默认黑夜形态（深紫调） ---- */
+        :root {
+            --bg-body: #120e17;
+            --text-primary: #ddd0e0;
+            --text-title: #e5d6f0;
+            --text-name: #c3b3d1;
+            --text-motto: #9c8daf;
+            --text-card-title: #e2d4ee;
+            --text-info: #d4c8e0;
+            --text-note: #a393b8;
+            --text-footer: #7a6b8a;
+            --text-gothic-extra: rgba(180, 150, 200, 0.45);
+            --border-body: rgba(190, 160, 210, 0.2);
+            --border-card: rgba(170, 145, 195, 0.25);
+            --bg-card: rgba(30, 22, 40, 0.55);
+            --bg-hobby: rgba(40, 30, 50, 0.4);
+            --bg-hobby-hover: rgba(50, 38, 62, 0.55);
+            --border-hobby: rgba(170, 145, 195, 0.3);
+            --border-hobby-hover: rgba(200, 170, 220, 0.7);
+            --hobby-hover-text: #f0e6fa;
+            --hobby-note-hover: #c5b0da;
+            --separator: rgba(180, 155, 200, 0.5);
+            --ornament-color: rgba(190, 165, 205, 0.5);
+            --ornament-line-mid: rgba(190, 165, 205, 0.6);
+            --ornament-line-side: rgba(190, 165, 205, 0.3);
+            --title-shadow: 0 0 12px rgba(170, 130, 200, 0.35), 0 0 30px rgba(90, 60, 120, 0.5);
+            --name-border: rgba(180, 150, 200, 0.3);
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --footer-border: rgba(150, 120, 170,0.25);
+            --btn-color: #ddd0e0;
+            --btn-border: rgba(200, 180, 220, 0.4);
+            --btn-hover-bg: rgba(200, 180, 220, 0.1);
+            --ellipsis-color: rgba(200, 170, 220, 0.7);
+            /* 卡片内小字颜色 */
+            --hobby-note-color: #a393b8;
+            --hobby-note-hover-color: #c5b0da;
+            --hobby-item-color: #d4c8e0;
+            --hobby-item-hover-color: #f0e6fa;
+            --message-text-color: #d4c8e0;
+            --card-title-border: rgba(180, 155, 200, 0.35);
+        }
+
+        /* ---- 白天形态（淡紫日间） ---- */
+        body.light-mode {
+            --bg-body: #f2edf7;
+            --text-primary: #3d2f4a;
+            --text-title: #3d2f4a;
+            --text-name: #5a4a6a;
+            --text-motto: #7a6b8a;
+            --text-card-title: #3d2f4a;
+            --text-info: #4a3d5a;
+            --text-note: #7a6b8a;
+            --text-footer: #8a7b9a;
+            --text-gothic-extra: rgba(100, 80, 120, 0.3);
+            --border-body: rgba(120, 100, 140, 0.25);
+            --border-card: rgba(140, 120, 160, 0.3);
+            --bg-card: rgba(255, 255, 255, 0.6);
+            --bg-hobby: rgba(240, 235, 245, 0.6);
+            --bg-hobby-hover: rgba(230, 220, 240, 0.8);
+            --border-hobby: rgba(140, 120, 160, 0.35);
+            --border-hobby-hover: rgba(120, 100, 140, 0.7);
+            --hobby-hover-text: #2d1f3a;
+            --hobby-note-hover: #5a4a6a;
+            --separator: rgba(120, 100, 140, 0.4);
+            --ornament-color: rgba(120, 100, 140, 0.4);
+            --ornament-line-mid: rgba(120, 100, 140, 0.5);
+            --ornament-line-side: rgba(120, 100, 140, 0.2);
+            --title-shadow: 0 0 8px rgba(150, 120, 170, 0.2), 0 0 20px rgba(100, 80, 120, 0.15);
+            --name-border: rgba(140, 120, 160, 0.4);
+            --card-shadow: 0 8px 24px rgba(80, 60, 100, 0.1);
+            --footer-border: rgba(120, 100, 140, 0.3);
+            --btn-color: #3d2f4a;
+            --btn-border: rgba(100, 80, 120, 0.5);
+            --btn-hover-bg: rgba(120, 100, 140, 0.1);
+            --ellipsis-color: rgba(120, 100, 140, 0.6);
+            --hobby-note-color: #7a6b8a;
+            --hobby-note-hover-color: #4a3d5a;
+            --hobby-item-color: #4a3d5a;
+            --hobby-item-hover-color: #2d1f3a;
+            --message-text-color: #4a3d5a;
+            --card-title-border: rgba(140, 120, 160, 0.4);
+        }
+
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Cormorant Garamond', 'Times New Roman', '宋体', serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* ---- 群山背景视差层 ---- */
+        .mountain-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .mountain-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: repeat-x;
+            background-position: bottom center;
+            background-size: 1400px auto;
+            opacity: 0.55;
+            will-change: transform;
+            transition: transform 0.1s ease-out, opacity 0.6s ease;
+        }
+
+        .layer-far {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,180 Q100,80 200,140 Q300,200 400,120 Q500,40 600,100 Q700,160 800,80 Q900,0 1000,90 Q1100,180 1200,120 Q1300,60 1400,150 L1400,300 Z' fill='%233a2d47'/%3E%3C/svg%3E");
+            opacity: 0.25;
+            filter: blur(2px);
+        }
+
+        .layer-mid {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,200 Q120,100 240,160 Q360,220 480,130 Q600,40 720,110 Q840,180 960,100 Q1080,20 1200,110 Q1300,180 1400,130 L1400,300 Z' fill='%234a3a58'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            filter: blur(1px);
+        }
+
+        .layer-near {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,230 Q150,150 300,200 Q450,250 600,160 Q750,70 900,150 Q1050,230 1200,170 Q1300,120 1400,200 L1400,300 Z' fill='%235a4868'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .layer-front {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,260 Q180,180 360,240 Q540,290 720,210 Q900,130 1080,220 Q1200,280 1400,230 L1400,300 Z' fill='%236b5878'/%3E%3C/svg%3E");
+            opacity: 0.6;
+        }
+
+        /* 白天模式下山峦颜色变浅 */
+        body.light-mode .layer-far {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,180 Q100,80 200,140 Q300,200 400,120 Q500,40 600,100 Q700,160 800,80 Q900,0 1000,90 Q1100,180 1200,120 Q1300,60 1400,150 L1400,300 Z' fill='%23d4c8e0'/%3E%3C/svg%3E");
+            opacity: 0.35;
+            filter: blur(2px);
+        }
+
+        body.light-mode .layer-mid {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,200 Q120,100 240,160 Q360,220 480,130 Q600,40 720,110 Q840,180 960,100 Q1080,20 1200,110 Q1300,180 1400,130 L1400,300 Z' fill='%23c8b8d8'/%3E%3C/svg%3E");
+            opacity: 0.45;
+            filter: blur(1px);
+        }
+
+        body.light-mode .layer-near {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,230 Q150,150 300,200 Q450,250 600,160 Q750,70 900,150 Q1050,230 1200,170 Q1300,120 1400,200 L1400,300 Z' fill='%23bca8d0'/%3E%3C/svg%3E");
+            opacity: 0.55;
+        }
+
+        body.light-mode .layer-front {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 300' width='1400' height='300'%3E%3Cpath d='M0,300 L0,260 Q180,180 360,240 Q540,290 720,210 Q900,130 1080,220 Q1200,280 1400,230 L1400,300 Z' fill='%23b098c8'/%3E%3C/svg%3E");
+            opacity: 0.65;
+        }
+
+        /* 极细装饰边框 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            border: 1px solid var(--border-body);
+            pointer-events: none;
+            z-index: 1;
+            transition: border-color 0.6s ease;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 880px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 细线装饰 */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            margin: 1.8rem 0;
+            color: var(--ornament-color);
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            transition: color 0.6s ease;
+        }
+
+        .ornament-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ornament-line-side), var(--ornament-line-mid), var(--ornament-line-side), transparent);
+            transition: background 0.6s ease;
+        }
+
+        .ornament-symbol {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        /* 大标题 */
+        h1 {
+            font-size: clamp(4rem, 12vw, 6.5rem);
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-title);
+            text-shadow: var(--title-shadow);
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            position: relative;
+            display: inline-block;
+            transition: color 0.6s ease, text-shadow 0.6s ease;
+        }
+
+        h1::after {
+            content: "⸸";
+            position: absolute;
+            bottom: -0.9rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: var(--ornament-color);
+            opacity: 0.7;
+            letter-spacing: 0;
+            transition: color 0.6s ease;
+        }
+
+        /* 名字小字 */
+        .name-small {
+            font-size: 1.4rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--text-name);
+            margin-top: 1.5rem;
+            margin-bottom: 0.25rem;
+            font-weight: 300;
+            font-style: normal;
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--name-border);
+            padding-bottom: 0.4rem;
+            transition: color 0.6s ease, border-color 0.6s ease;
+        }
+
+        /* 名字下方浅色短句 */
+        .motto-light {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: var(--text-motto);
+            margin-top: 0.8rem;
+            margin-bottom: 0.2rem;
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0.9;
+            transition: color 0.6s ease;
+        }
+
+        /* 通用卡片 */
+        .intro-card {
+            margin: 2.5rem 0 1.5rem;
+            padding: 2rem 2rem 1.8rem;
+            border: 1px solid var(--border-card);
+            background-color: var(--bg-card);
+            backdrop-filter: blur(3px);
+            max-width: 620px;
+            width: 100%;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            text-align: left;
+            transition: border-color 0.6s ease, background-color 0.6s ease, box-shadow 0.6s ease;
+        }
+
+        .intro-card::before,
+        .intro-card::after {
+            content: "◆";
+            position: absolute;
+            font-size: 0.6rem;
+            color: var(--ornament-color);
+            opacity: 0.8;
+            transition: color 0.6s ease;
+        }
+
+        .intro-card::before { top: 8px; left: 12px; }
+        .intro-card::after { bottom: 8px; right: 12px; }
+
+        /* 卡片标题 */
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-card-title);
+            margin-bottom: 1.2rem;
+            text-align: left;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--card-title-border);
+            transition: color 0.6s ease, border-color 0.6s ease;
+        }
+
+        /* 信息行 */
+        .info-line {
+            font-size: 1.15rem;
+            color: var(--text-info);
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            margin: 0.7rem 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            transition: color 0.6s ease;
+        }
+
+        .separator {
+            color: var(--separator);
+            margin: 0 0.2rem;
+            font-weight: 300;
+            transition: color 0.6s ease;
+        }
+
+        /* 爱好网格 */
+        .hobby-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .hobby-item {
+            flex: 1 1 0;
+            min-width: 100px;
+            padding: 1.2rem 0.5rem;
+            border: 1px solid var(--border-hobby);
+            background-color: var(--bg-hobby);
+            text-align: center;
+            color: var(--hobby-item-color);
+            font-weight: 300;
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hobby-item:hover {
+            border-color: var(--border-hobby-hover);
+            background-color: var(--bg-hobby-hover);
+            color: var(--hobby-item-hover-color);
+        }
+
+        .hobby-name {
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+        }
+
+        .hobby-note {
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            color: var(--hobby-note-color);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.4;
+            word-break: break-word;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+        }
+
+        .hobby-item:hover .hobby-note {
+            color: var(--hobby-note-hover-color);
+        }
+
+        .hobby-item::before {
+            content: "·";
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            font-size: 0.8rem;
+            color: var(--ornament-color);
+            opacity: 0.6;
+            transition: color 0.6s ease;
+        }
+
+        .hobby-item::after {
+            content: "·";
+            position: absolute;
+            bottom: 4px;
+            right: 8px;
+            font-size: 0.8rem;
+            color: var(--ornament-color);
+            opacity: 0.6;
+            transition: color 0.6s ease;
+        }
+
+        /* 留言文字 */
+        .message-text {
+            font-size: 1.1rem;
+            color: var(--message-text-color);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            margin: 0.5rem 0 0.2rem;
+            text-align: left;
+            transition: color 0.6s ease;
+        }
+
+        .message-text .ellipsis {
+            color: var(--ellipsis-color);
+            letter-spacing: 0.15em;
+            transition: color 0.6s ease;
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: var(--text-footer);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-top: 1px solid var(--footer-border);
+            padding-top: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: color 0.6s ease, border-color 0.6s ease;
+        }
+
+        footer span {
+            color: #a38d7a;
+            font-style: italic;
+        }
+
+        /* 装饰符 */
+        .gothic-extra {
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            color: var(--text-gothic-extra);
+            letter-spacing: 0.8rem;
+            transition: color 0.6s ease;
+        }
+
+        /* ---- 切换按钮 ---- */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1.5px solid var(--btn-border);
+            background: transparent;
+            color: var(--btn-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.2s ease, color 0.4s ease, opacity 0.8s ease;
+            backdrop-filter: blur(4px);
+            -webkit-tap-highlight-color: transparent;
+            /* 按钮初始隐藏，等页面加载后渐现 */
+            opacity: 0;
+        }
+
+        .theme-toggle.visible {
+            opacity: 1;
+        }
+
+        .theme-toggle:hover {
+            background: var(--btn-hover-bg);
+            transform: scale(1.08);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle .icon {
+            line-height: 1;
+            font-size: 1.5rem;
+            font-family: 'Segoe UI', 'Apple Symbols', 'Arial Unicode MS', sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .theme-toggle {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+            .theme-toggle .icon {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body::before {
+                top: 0.8rem;
+                left: 0.8rem;
+                right: 0.8rem;
+                bottom: 0.8rem;
+            }
+
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 18vw, 4.5rem);
+            }
+
+            .name-small {
+                font-size: 1.1rem;
+                letter-spacing: 0.25em;
+            }
+
+            .motto-light {
+                font-size: 0.9rem;
+                letter-spacing: 0.15em;
+            }
+
+            .intro-card {
+                padding: 1.5rem 1rem;
+                margin-top: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .info-line {
+                font-size: 1rem;
+                flex-direction: row;
+            }
+
+            .hobby-grid {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .hobby-item {
+                padding: 1rem 0.5rem;
+                flex: 1 1 auto;
+                gap: 0.3rem;
+            }
+
+            .hobby-name {
+                font-size: 1rem;
+            }
+
+            .hobby-note {
+                font-size: 0.75rem;
+            }
+
+            .message-text {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .mountain-layer {
+                background-size: 900px auto;
+            }
+        }
+
+        /* ---- 首次加载渐现动画 ---- */
+        /* 默认所有需要渐现的元素初始透明、轻微下移 */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* 当元素加上 visible 类后，恢复正常 */
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 山峦背景单独处理：初始透明，淡入 */
+        .mountain-background {
+            opacity: 0;
+            transition: opacity 1.8s ease;
+        }
+
+        .mountain-background.visible {
+            opacity: 1;
+        }
+
+        /* 极细边框也做淡入（通过body::before的opacity？但伪元素不好控制，我们直接控制容器即可） */
+    </style>
+</head>
+<body>
+    <!-- 背景群山视差层 -->
+    <div class="mountain-background" id="mountainBg">
+        <div class="mountain-layer layer-far" id="layerFar"></div>
+        <div class="mountain-layer layer-mid" id="layerMid"></div>
+        <div class="mountain-layer layer-near" id="layerNear"></div>
+        <div class="mountain-layer layer-front" id="layerFront"></div>
+    </div>
+
+    <div class="container">
+        <!-- 给容器内的主要区块依次加上 fade-in-element 类，并通过 JS 控制次序 -->
+        <div class="ornament fade-in-element" data-fade-order="1">
+            <div class="ornament-line"></div>
+            <span class="ornament-symbol">✟</span>
+            <div class="ornament-line"></div>
+        </div>
+
+        <h1 class="fade-in-element" data-fade-order="2">About Me</h1>
+        
+        <div class="name-small fade-in-element" data-fade-order="3">李安卉</div>
+        
+        <div class="motto-light fade-in-element" data-fade-order="4">“人生就是塞翁失马”</div>
+
+        <div class="intro-card fade-in-element" data-fade-order="5">
+            <div class="card-title">关于我</div>
+            <div class="info-line">
+                <span>Age 18</span>
+                <span class="separator">||</span>
+                <span>MBTI INTP</span>
+                <span class="separator">||</span>
+                <span>From 广东广州</span>
+            </div>
+        </div>
+
+        <div class="intro-card fade-in-element" data-fade-order="6" style="margin-top: 1.5rem;">
+            <div class="card-title">爱好</div>
+            <div class="hobby-grid">
+                <div class="hobby-item">
+                    <span class="hobby-name">绘画</span>
+                    <span class="hobby-note">人菜但爱画</span>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-name">cosplay</span>
+                    <span class="hobby-note">玩得烧心但一直坚持着...？</span>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-name">跳舞</span>
+                    <span class="hobby-note">入门，仍在探索...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-card fade-in-element" data-fade-order="7" style="margin-top: 1.5rem;">
+            <div class="card-title">留言</div>
+            <p class="message-text">
+                励志在大学四年把自己培养成一个J人<span class="ellipsis">...</span><br>
+                持续挖掘自己感兴趣的事物，且永远不要失去热情
+            </p>
+        </div>
+
+        <div class="gothic-extra fade-in-element" data-fade-order="8">✧  ✦  ✧</div>
+
+        <div class="ornament fade-in-element" data-fade-order="9" style="margin-top: 2rem;">
+            <div class="ornament-line"></div>
+            <span class="ornament-symbol">⸸</span>
+            <div class="ornament-line"></div>
+        </div>
+
+        <footer class="fade-in-element" data-fade-order="10">
+            ——LIANHUI-All About Me——
+        </footer>
+    </div>
+
+    <!-- 切换按钮：黑夜显示太阳，白天显示月亮 -->
+    <button class="theme-toggle" id="themeToggle" aria-label="切换白天/黑夜模式">
+        <span class="icon" id="themeIcon">☀</span>
+    </button>
+
+    <script>
+        (function() {
+            // ===== 首次加载渐现 =====
+            // 山峦背景淡入
+            const mountainBg = document.getElementById('mountainBg');
+            if (mountainBg) {
+                // 微小延迟后触发，让页面看起来是渐变出现的
+                setTimeout(() => {
+                    mountainBg.classList.add('visible');
+                }, 100);
+            }
+
+            // 获取所有需要渐现的元素（除了山峦背景）
+            const fadeElements = document.querySelectorAll('.fade-in-element');
+            // 按 data-fade-order 排序，虽然DOM顺序已经基本有序，但为了灵活起见
+            const sortedElements = Array.from(fadeElements).sort((a, b) => {
+                return parseInt(a.dataset.fadeOrder || 0) - parseInt(b.dataset.fadeOrder || 0);
+            });
+
+            // 依次显示，每个间隔 150ms
+            sortedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, 200 + index * 150); // 从200ms开始，避免和背景淡入冲突
+            });
+
+            // 主题切换按钮延迟出现
+            const toggleBtn = document.getElementById('themeToggle');
+            setTimeout(() => {
+                toggleBtn.classList.add('visible');
+            }, 200 + sortedElements.length * 150 + 100); // 等所有元素都显示完再出现
+
+            // ===== 主题切换 =====
+            const body = document.body;
+            const iconSpan = document.getElementById('themeIcon');
+
+            function setIcon(isLight) {
+                iconSpan.textContent = isLight ? '☾' : '☀';
+            }
+
+            setIcon(body.classList.contains('light-mode'));
+
+            toggleBtn.addEventListener('click', () => {
+                const isLight = body.classList.toggle('light-mode');
+                setIcon(isLight);
+            });
+
+            // ===== 群山视差 =====
+            const layerFar = document.getElementById('layerFar');
+            const layerMid = document.getElementById('layerMid');
+            const layerNear = document.getElementById('layerNear');
+            const layerFront = document.getElementById('layerFront');
+
+            const speeds = {
+                far: 0.08,
+                mid: 0.15,
+                near: 0.25,
+                front: 0.35
+            };
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let currentX = 0;
+            let currentY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) - 0.5;
+                mouseY = (e.clientY / window.innerHeight) - 0.5;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    mouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
+                    mouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
+                }
+            }, { passive: true });
+
+            function animate() {
+                currentX += (mouseX - currentX) * 0.08;
+                currentY += (mouseY - currentY) * 0.08;
+
+                const offsetXFar = -currentX * 30 * speeds.far;
+                const offsetYFar = -currentY * 18 * speeds.far;
+                const offsetXMid = -currentX * 45 * speeds.mid;
+                const offsetYMid = -currentY * 26 * speeds.mid;
+                const offsetXNear = -currentX * 65 * speeds.near;
+                const offsetYNear = -currentY * 35 * speeds.near;
+                const offsetXFront = -currentX * 85 * speeds.front;
+                const offsetYFront = -currentY * 45 * speeds.front;
+
+                if (layerFar) layerFar.style.transform = `translate(${offsetXFar}px, ${offsetYFar}px)`;
+                if (layerMid) layerMid.style.transform = `translate(${offsetXMid}px, ${offsetYMid}px)`;
+                if (layerNear) layerNear.style.transform = `translate(${offsetXNear}px, ${offsetYNear}px)`;
+                if (layerFront) layerFront.style.transform = `translate(${offsetXFront}px, ${offsetYFront}px)`;
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+    </script>
+</body>
+</html>
